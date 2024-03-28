@@ -25,12 +25,12 @@ export class UserController {
 
   @Get(':id')
   async readOne(@Param('id', ParseIntPipe) id: number) {
-    return { user: [], id };
+    return this.userService.getById(id);
   }
 
   @Get()
   async read() {
-    return { users: [] };
+    return this.userService.getAll();
   }
 
   @Put(':id')
@@ -38,10 +38,7 @@ export class UserController {
     @Body() body: UpdatePutUserDto,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return {
-      body,
-      id,
-    };
+    return this.userService.update(id, body);
   }
 
   @Patch(':id')
@@ -49,10 +46,7 @@ export class UserController {
     @Body() body: UpdatePatchUserDto,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    return {
-      body,
-      id,
-    };
+    return this.userService.updatePartial(id, body);
   }
 
   @Delete(':id')
